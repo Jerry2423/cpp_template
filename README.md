@@ -6,12 +6,33 @@
 
 # Modern C++ Template
 
+Adapter from [filipdutescu/modern-cpp-template](https://github.com/filipdutescu/modern-cpp-template)
+
 A quick C++ template for modern CMake projects, aimed to be an easy to use
 starting point.
 
 This is my personal take on such a type of template, thus I might not use the
 best practices or you might disagree with how I do things. Any and all feedback
 is greatly appreciated!
+
+## Table of Contents
+- [Modern C++ Template](#modern-c-template)
+- [Introduction](#introduction)
+- [Features](#features)
+- [Steps Overview](#steps-overview)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installing](#installing)
+- [Building the project](#building-the-project)
+- [Generating the documentation](#generating-the-documentation)
+- [Running the tests](#running-the-tests)
+  - [End to end tests](#end-to-end-tests)
+  - [Coding style tests](#coding-style-tests)
+- [Contributing](#contributing)
+- [Versioning](#versioning)
+- [License](#license)
+- [CMake Learning Resources](#additional-resources)
+
 
 ## Features
 
@@ -51,6 +72,18 @@ template is licensed under the [Unlicense](https://unlicense.org/),
 shared library.
 
 * **Ccache** integration, for speeding up rebuild times
+
+## Steps Overview
+- [Change project name](README.md#Installing)
+
+- Add your source files. Store headers (declarations) in `include/` and source files (definitions) in `src/`
+
+- Add packages. Check out `cmake/StandardSettings.cmake` for options `_ENABLE_CONAN` and `_ENABLE_VCPKG`. Then install the packages with `conan install .` or `vcpkg install .` Finally, add the packages to `CMakeLists.txt` (there is a commented code block for each package adding). More information can be found in the [Conan](https://docs.conan.io/en/latest/) and [Vcpkg](https://vcpkg.readthedocs.io/en/latest/) documentation.
+
+- Can build executables, static libraries, shared libraries, and header-only libraries. Change the `_BUILD_EXECUTABLE` option in `cmake/StandardSettings.cmake` to change the type. Once built, the executable will be in the `build/bin/Debug/` directory, the static library will be in the `build/lib/Debug/` directory, the header-only library will be in the `build/include/Debug/` directory. The directory of built executables and libraries can be found in the **build information (last line)** after running `cmake ..` in the `build/` directory.
+
+- Turn off unit testing by changing the `_ENABLE_UNIT_TESTING` option in `cmake/StandardSettings.cmake`
+
 
 ## Getting Started
 
@@ -196,11 +229,16 @@ This project makes use of [SemVer](http://semver.org/) for versioning. A list of
 existing versions can be found in the
 [project's releases](https://github.com/filipdutescu/modern-cpp-template/releases).
 
-## Authors
-
-* **Filip-Ioan Dutescu** - [@filipdutescu](https://github.com/filipdutescu)
 
 ## License
 
 This project is licensed under the [Unlicense](https://unlicense.org/) - see the
 [LICENSE](LICENSE) file for details
+
+## Additional Resources
+- [An Introduction to Modern CMake](https://cliutils.gitlab.io/modern-cmake/)
+  - Think in **targets**: Your targets should **represent concepts.** Make an (IMPORTED) INTERFACE target for anything that should stay together and link to that.
+  - Multiple ***targets** build up the hole program!
+  - Link to built files directly: Always **link to targets** if available.
+
+
